@@ -1,5 +1,5 @@
 <?php
-$params = require __DIR__ . '/params.php';
+$params = require __DIR__ . '/backend/params.php';
 
 return [
     'id' => 'app-backend',
@@ -18,7 +18,7 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'q7OftDc4G5F7T_q5t2FSISRXGA-AmLL6',
         ],
         'user' => [
             'identityClass' => 'app\models\User',

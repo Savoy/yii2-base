@@ -8,7 +8,7 @@ require __DIR__ . '/../../vendor/yiisoft/yii2/Yii.php';
 
 $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../../config/common.php',
-    require __DIR__ . '/../../config/backend/main.php'
+    require __DIR__ . '/../../config/backend.php'
 );
 
 (new yii\web\Application($config))->run();
