@@ -40,7 +40,7 @@ git clone https://github.com/Savoy/yii2-base.git
 
 Install your vendor packages and run the installation triggers (creating cookie validation code)
 
-    docker-compose run --rm php composer install    
+    docker-compose run --rm app composer install    
 
 Start the container
 
