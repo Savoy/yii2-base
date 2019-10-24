@@ -11,7 +11,7 @@ services:
       # Mount source-code for development
       - ./:/app
       # Mount apache log dir
-      - ./docker/containers/app/var/log:/var/log
+      - ./docker/app/var/log:/var/log
     environment:
       - YII_DEBUG=true
       - YII_ENV=dev
@@ -23,8 +23,8 @@ services:
     image: mysql:5.7
     container_name: yii2-mysql
     volumes:
-      - ./docker/containers/mysql/etc/mysql/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./docker/containers/mysql/var/lib/mysql:/var/lib/mysql
+      - ./docker/mysql/etc/mysql/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/mysql/var/lib/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=yii2db
@@ -41,7 +41,7 @@ services:
     environment:
       PMA_HOST: mysql
     volumes:
-      - ./docker/containers/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+      - ./docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
     depends_on:
         - mysql
 
