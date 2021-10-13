@@ -1,17 +1,17 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \app\models\ContactForm */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $model app\modules\base\models\ContactForm */
 
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\Html;
+use yii\bootstrap4\ActiveForm;
 use yii\captcha\Captcha;
 
-$this->title = 'Contact';
+$this->title = 'Обратная связь';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-contact">
+<div class="base-contact">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

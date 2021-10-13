@@ -2,8 +2,8 @@
 
 namespace app\modules\base\controllers\frontend;
 
-use app\models\LoginForm;
 use app\modules\base\models\ContactForm;
+use app\modules\base\models\LoginForm;
 use app\modules\base\models\PasswordResetRequestForm;
 use app\modules\base\models\ResendVerificationEmailForm;
 use app\modules\base\models\ResetPasswordForm;

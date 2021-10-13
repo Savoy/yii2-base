@@ -1,9 +1,8 @@
 <?php
-$params = require __DIR__ . '/backend/params.php';
+$params = require __DIR__ . '/params.php';
 
 return [
     'id' => 'app-backend',
-    'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'viewPath' => '@app/views/backend',
     'defaultRoute' => 'base/default/index',
@@ -21,7 +20,7 @@ return [
             'cookieValidationKey' => 'q7OftDc4G5F7T_q5t2FSISRXGA-AmLL6',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => app\models\User::class,
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
             'loginUrl' => ['/base/default/login'],
@@ -33,14 +32,7 @@ return [
         'errorHandler' => [
             'errorAction' => 'base/default/error',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+        'urlManager' => require __DIR__ . '/urlManager.php',
     ],
     'params' => $params,
 ];

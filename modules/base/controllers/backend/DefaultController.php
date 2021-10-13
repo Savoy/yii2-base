@@ -2,11 +2,11 @@
 
 namespace app\modules\base\controllers\backend;
 
+use app\modules\base\models\LoginForm;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use app\models\LoginForm;
 
 /**
  * Default controller
@@ -50,6 +50,7 @@ class DefaultController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+                'layout' => Yii::$app->user->isGuest ? '/blank' : '/main',
             ],
         ];
     }
@@ -71,6 +72,7 @@ class DefaultController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = '/blank';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

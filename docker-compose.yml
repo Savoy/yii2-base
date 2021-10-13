@@ -1,39 +1,51 @@
-version: '3.2'
+version: '3.3'
 services:
-  app:
-    image: yiisoftware/yii2-php:7.1-apache
-    container_name: yii2-app
+  web:
+    image: nginx:latest
+    container_name: ${COMPOSE_PROJECT_NAME}-web
     ports:
       - 80:80
+      - 443:443
+    volumes:
+      - ./docker/web/conf:/etc/nginx/conf.d
+      - ./docker/web/logs:/var/log/nginx/
+      # Mount source-code for development
+      - ./:/app
+    links:
+      - app
+
+  app:
+    image: yiisoftware/yii2-php:7.4-fpm
+    container_name: ${COMPOSE_PROJECT_NAME}-app
     volumes:
       # Re-use local composer cache via host-volume
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
-      # Mount apache log dir
-      - ./docker/app/var/log:/var/log
     environment:
       - YII_DEBUG=true
       - YII_ENV=dev
+    expose:
+      - 9000
     depends_on:
       - mysql
       - redis
 
   mysql:
     image: mysql:5.7
-    container_name: yii2-mysql
+    container_name: ${COMPOSE_PROJECT_NAME}-mysql
     volumes:
-      - ./docker/mysql/etc/mysql/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./docker/mysql/var/lib/mysql:/var/lib/mysql
+      - ./docker/mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/mysql/data/mysql:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=yii2db
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=pass
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: yii2-phpmyadmin
+    container_name: ${COMPOSE_PROJECT_NAME}-phpmyadmin
     ports:
       - 8080:80
     links:
@@ -43,8 +55,8 @@ services:
     volumes:
       - ./docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
     depends_on:
-        - mysql
+      - mysql
 
   redis:
     image: redis:3.2
-    container_name: yii2-redis
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
